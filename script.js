@@ -1,3 +1,5 @@
+import {agefilter} from "./ageFilter.js";
+
 const searchBtm = document.querySelector(".user-search__btn");
 searchBtm.addEventListener("click" , () => {
     filterUser();
@@ -26,11 +28,12 @@ async function  filterUser(){
 
 //my code -------------------------------------------------------------------------------------------------------------------------------------------
 const departments = new Set();
+let users = [];
 async function fetchDepartment(){
     try{
         const response = await fetch("https://dummyjson.com/users");
         const userJson = await response.json();
-        const users = userJson.users;
+        users = userJson.users;
         
 
         
@@ -68,9 +71,7 @@ async function displayDepartmentFilter() {
             });
 
         });
-
-        
-    
+   
 }
 
 
@@ -82,7 +83,7 @@ async function filterUserBasedOnDepartment(department){
         
        const response = await fetch("https://dummyjson.com/users/filter?key=company.department&value="+department);
         const data = await response.json();
-        displayUser(data);
+        addDisplayTrue(data);
         
     }
     catch(error){
@@ -94,50 +95,61 @@ async function filterUserBasedOnDepartment(department){
     
 }
 
-async function displayUser(data) {
+async function addDisplayTrue(data){
+    users = data.users;
+    users.forEach(user => {
+              user.display = true;
+         });
 
-    const users = data.users;
+    displayUser(users);    
+    agefilter(20, 40, users); 
+
+}
+
+export async function displayUser(users) {
+
+    
     const displayUserContainer = document.querySelector(".User__details");
 
     displayUserContainer.innerHTML = "";
 
     users.forEach(user => {
 
+    if(user.display == true){
         displayUserContainer.innerHTML += `
-            <div class="user-box">
+        <div class="user-box">
 
-                <img
-                    class="user-box__image"
-                    src="${user.image}"
-                    alt="${user.firstName}"
-                >
+            <img
+                class="user-box__image"
+                src="${user.image}"
+                alt="${user.firstName}"
+            >
 
-                <h3>
-                    ${user.firstName} ${user.lastName}
-                </h3>
+            <h3>
+                ${user.firstName} ${user.lastName}
+            </h3>
 
-                <p><strong>Age:</strong> ${user.age}</p>
+            <p><strong>Age:</strong> ${user.age}</p>
 
-                <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
 
-                <p><strong>Phone:</strong> ${user.phone}</p>
+            <p><strong>Phone:</strong> ${user.phone}</p>
 
-                <p><strong>Department:</strong> ${user.company.department}</p>
+            <p><strong>Department:</strong> ${user.company.department}</p>
 
-                <p><strong>Company:</strong> ${user.company.name}</p>
+            <p><strong>Company:</strong> ${user.company.name}</p>
 
-                <p><strong>Title:</strong> ${user.company.title}</p>
-
-                <p><strong>Role:</strong> ${user.role}</p>
-
-            </div>
-        `;
+            <p><strusers
+        </div>
+    `;
+    }
     });
 }
 
 async function init() {
     await fetchDepartment();
     displayDepartmentFilter();
+    agefilter(10,200,users);
 }
 
 init();
