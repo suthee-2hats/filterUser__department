@@ -47,17 +47,4 @@
     background-color: #0056b3;
 }
 
-.department__filter{
-    display: flex;
-flex-direction: column;
-width: 20%;
-height: 80px;
-overflow: scroll;
-padding: 20px;
 
-}
-
-.filter__user{
-    display: flex;
-    flex-direction: row;
-}

@@ -94,12 +94,44 @@ async function filterUserBasedOnDepartment(department){
     
 }
 
-async function displayUser(data){
+async function displayUser(data) {
+
     const users = data.users;
     const displayUserContainer = document.querySelector(".User__details");
-    users.forEach( e => {
 
-        displayUserContainer.innerHTML += `<p> ${e.firstName} </p>`;
+    displayUserContainer.innerHTML = "";
+
+    users.forEach(user => {
+
+        displayUserContainer.innerHTML += `
+            <div class="user-box">
+
+                <img
+                    class="user-box__image"
+                    src="${user.image}"
+                    alt="${user.firstName}"
+                >
+
+                <h3>
+                    ${user.firstName} ${user.lastName}
+                </h3>
+
+                <p><strong>Age:</strong> ${user.age}</p>
+
+                <p><strong>Email:</strong> ${user.email}</p>
+
+                <p><strong>Phone:</strong> ${user.phone}</p>
+
+                <p><strong>Department:</strong> ${user.company.department}</p>
+
+                <p><strong>Company:</strong> ${user.company.name}</p>
+
+                <p><strong>Title:</strong> ${user.company.title}</p>
+
+                <p><strong>Role:</strong> ${user.role}</p>
+
+            </div>
+        `;
     });
 }
 
