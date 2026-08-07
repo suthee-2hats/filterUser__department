@@ -74,14 +74,16 @@ async function displayDepartmentFilter() {
 }
 
 
-//FUNCTION IS WORKING NO PROBLEM I THINK EVENT LISTENER HAVE PROBLEM 
 async function filterUserBasedOnDepartment(department){
     try{
-        console.log("working");
+        const displayUserContainer = document.querySelector(".User__details");
+        displayUserContainer.innerHTML = `<h3> ${department} </h3>`
+
+        
        const response = await fetch("https://dummyjson.com/users/filter?key=company.department&value="+department);
         const data = await response.json();
-        console.log(data);
-
+        displayUser(data);
+        
     }
     catch(error){
         console.log(error);
@@ -90,6 +92,15 @@ async function filterUserBasedOnDepartment(department){
 
 
     
+}
+
+async function displayUser(data){
+    const users = data.users;
+    const displayUserContainer = document.querySelector(".User__details");
+    users.forEach( e => {
+
+        displayUserContainer.innerHTML += `<p> ${e.firstName} </p>`;
+    });
 }
 
 async function init() {
