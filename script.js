@@ -4,7 +4,7 @@ searchBtm.addEventListener("click" , () => {
 })
 
 
-const departments = new Set();
+
 
 async function  filterUser(){
     const inputForm = document.querySelector(".user-search__form");
@@ -25,6 +25,7 @@ async function  filterUser(){
 }
 
 //my code -------------------------------------------------------------------------------------------------------------------------------------------
+const departments = new Set();
 async function fetchDepartment(){
     try{
         const response = await fetch("https://dummyjson.com/users");
@@ -53,21 +54,31 @@ async function displayDepartmentFilter() {
 
     const filterContainer = document.querySelector(".department__filter");
     departments.forEach(e => {
+
             filterContainer.innerHTML += `<button class ="department__filter-btn">${e}</button>`;
-            const button =  document.querySelector(".department__filter-btn"); 
-            button.addEventListener("click",() => {
-                filterUserBasedOnDepartment(button.innerHTML);
+                    
+        });
+        const button =  document.querySelectorAll(".department__filter-btn");  
+        button.forEach(b => {
+
+            b.addEventListener("click",() => {
+                
+                filterUserBasedOnDepartment(b.innerHTML);
                 
             });
-                 
+
         });
+
+        
     
 }
 
 
+//FUNCTION IS WORKING NO PROBLEM I THINK EVENT LISTENER HAVE PROBLEM 
 async function filterUserBasedOnDepartment(department){
     try{
-        const response = await fetch("https://dummyjson.com/users/filter?key=company.department&value="+department);
+        console.log("working");
+       const response = await fetch("https://dummyjson.com/users/filter?key=company.department&value="+department);
         const data = await response.json();
         console.log(data);
 
@@ -87,5 +98,7 @@ async function init() {
 }
 
 init();
+
+
 
 
