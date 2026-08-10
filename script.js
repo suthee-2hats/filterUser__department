@@ -17,7 +17,7 @@ async function  filterUser(){
         if(userDetails == ""){
             return;
         }
-        console.log(userDetails);
+        addDisplayTrue(userDetails);
     }
     catch(err){
         console.log(err);
@@ -151,7 +151,23 @@ const ageFilterBtn = document.querySelector("#age_submit");
 ageFilterBtn.addEventListener("click" , () =>{
       const from = document.querySelector("#from_age").value;
       const to = document.querySelector("#to_age").value;
-      agefilter(from,to,specificDepartmentUser);
+      if(from == 0 && to == 0){
+        const input = document.querySelectorAll(".age_input");
+        input.forEach(e =>[
+            e.placeholder = "enter value"
+        ]);
+        console.log("enter value");
+        return;
+      }
+
+      let data = [];
+      if(specificDepartmentUser.length === 0){
+        data = allUsers;
+      }
+      else{
+        data = specificDepartmentUser;
+      }
+      agefilter(from,to,data);
 
       
 });

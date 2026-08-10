@@ -48,3 +48,77 @@
 }
 
 
+/* Sidebar container holding both department and age filters */
+.sidebar {
+    width: 280px;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px;
+    border-right: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    border-radius: 12px;
+}
+
+/* Department filter section inside sidebar */
+.department__filter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.department__filter h3,
+.age__filter h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 4px;
+}
+
+/* Age filter form entry styling */
+.age__filter {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 250px;
+    padding: 20px;
+  
+}
+
+.age__inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.age_input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    background-color: #fff;
+}
+
+.age_input:focus {
+    border-color: #007bff;
+}
+
+/* Age submit button styling */
+#age_submit {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#age_submit:hover {
+    background-color: #0056b3;
+}
