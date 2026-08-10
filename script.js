@@ -29,15 +29,17 @@ async function  filterUser(){
 //my code -------------------------------------------------------------------------------------------------------------------------------------------
 const departments = new Set();
 let users = [];
+let allUsers = [];
+let specificDepartmentUser = [];
 async function fetchDepartment(){
     try{
         const response = await fetch("https://dummyjson.com/users");
         const userJson = await response.json();
-        users = userJson.users;
+        allUsers = userJson.users;
         
 
         
-       users.forEach(element => {
+       allUsers.forEach(element => {
         departments.add(element.company.department);
            
         });
@@ -96,14 +98,13 @@ async function filterUserBasedOnDepartment(department){
 }
 
 async function addDisplayTrue(data){
-    users = data.users;
-    users.forEach(user => {
+    specificDepartmentUser = data.users;
+    specificDepartmentUser.forEach(user => {
               user.display = true;
          });
 
-    displayUser(users);    
-    agefilter(20, 40, users); 
-
+    displayUser(specificDepartmentUser);    
+   
 }
 
 export async function displayUser(users) {
@@ -146,10 +147,19 @@ export async function displayUser(users) {
     });
 }
 
+const ageFilterBtn = document.querySelector("#age_submit");
+ageFilterBtn.addEventListener("click" , () =>{
+      const from = document.querySelector("#from_age").value;
+      const to = document.querySelector("#to_age").value;
+      agefilter(from,to,specificDepartmentUser);
+
+      
+});
 async function init() {
     await fetchDepartment();
     displayDepartmentFilter();
-    agefilter(10,200,users);
+    console.log(specificDepartmentUser); 
+
 }
 
 init();
